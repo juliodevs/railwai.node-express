@@ -4,18 +4,18 @@ const routerApi = require('./routes')
 const os = require('os')
 const {logsError,errorHandler,boomErrorHandler} = require('./middlewares/error.handler') // Importo el modulo de errores
 const app = express() //Crear una aplicación
-const port= 3000//Puerto en donde correrá mi aplicación
+const port= process.env.PORT || 3000//Puerto en donde correrá mi aplicación
 
 
 app.use(express.json())
 
-const whiteList= ['http://localhost:3000:','http://myapp.co'] // Establezco arreglo con lista de origenes permitidos
+const whitelist = ['http://localhost:8080', 'https://myapp.co'];
 const options = {
-  origin: (origin,calback)=>{
-    if(whiteList.includes(origin)){
-      calback(null,true)
-    }else{
-      calback(new Error('No permitido'))
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('no permitido'));
     }
   }
 }
