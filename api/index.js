@@ -31,3 +31,5 @@ app.use(errorHandler)
 app.listen(port,()=>{
   console.log('Puerto'+port)
 })//Pongo a escuchar la aplicación por el puerto que definí.
+
+module.exports = app
